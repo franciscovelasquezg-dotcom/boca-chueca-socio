@@ -3,7 +3,7 @@ import { CheckCircle2, Clock, Circle, Globe, Server, Briefcase, Scale, Megaphone
 import { useProgressStore } from '../store/progressStore'
 import { useAuthStore }     from '../store/authStore'
 import { useIdeaStore }     from '../store/ideaStore'
-import { IdeaBox }          from '../components/ui/IdeaBox'
+
 import type { Milestone }   from '../types'
 
 // ─── Configuración visual ────────────────────────────────────────────────────
@@ -226,9 +226,6 @@ export function Dashboard() {
           <span><span className="text-outline">{pending.length}</span> pendientes</span>
         </div>
       </section>
-
-      {/* IdeaBox — siempre visible, antes del grid */}
-      <IdeaBox />
 
       {/* Grid principal */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
