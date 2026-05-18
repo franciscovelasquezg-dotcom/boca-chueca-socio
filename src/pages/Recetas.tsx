@@ -22,13 +22,13 @@ function AddModal({ onClose }: { onClose: () => void }) {
     onClose()
   }
   return (
-    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4 overflow-y-auto">
-      <div className="bg-[#1c1b1b] border border-[#504441] w-full max-w-lg my-4">
-        <div className="px-5 py-4 border-b border-[#504441] flex items-center justify-between">
+    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-end sm:items-center justify-center z-50 p-0 sm:p-4">
+      <div className="bg-[#1c1b1b] border border-[#504441] w-full sm:max-w-lg max-h-[92vh] flex flex-col">
+        <div className="px-4 py-3 border-b border-[#504441] flex items-center justify-between shrink-0">
           <h3 className="font-display text-[#ecbbb0] italic font-bold text-lg">Nueva receta</h3>
-          <button onClick={onClose} className="text-[#504441] hover:text-[#9d8d8a] text-xl">×</button>
+          <button onClick={onClose} className="text-[#504441] hover:text-[#9d8d8a] min-w-[44px] min-h-[44px] flex items-center justify-center text-xl">×</button>
         </div>
-        <form onSubmit={handle} className="p-5 space-y-3">
+        <form onSubmit={handle} className="p-4 space-y-3 overflow-y-auto">
           {[
             { k:'titulo', l:'Nombre de la receta *', ph:'Tapa de gambas al ajillo con merkén...' },
             { k:'descripcion', l:'Descripción', ph:'Concepto e inspiración...' },
@@ -56,9 +56,9 @@ function AddModal({ onClose }: { onClose: () => void }) {
               </div>
             ))}
           </div>
-          <div className="flex gap-3 pt-2">
-            <button type="submit" className="flex-1 py-2.5 bg-[#eac349] text-[#131313] font-bold uppercase tracking-wider text-sm">Guardar</button>
-            <button type="button" onClick={onClose} className="px-4 py-2.5 border border-[#504441] text-[#9d8d8a] text-sm font-bold uppercase">Cancelar</button>
+          <div className="flex gap-3 pt-2 pb-1">
+            <button type="submit" className="flex-1 min-h-[48px] bg-[#eac349] text-[#131313] font-bold uppercase tracking-wider text-sm">Guardar</button>
+            <button type="button" onClick={onClose} className="px-4 min-h-[48px] border border-[#504441] text-[#9d8d8a] text-sm font-bold uppercase">Cancelar</button>
           </div>
         </form>
       </div>
