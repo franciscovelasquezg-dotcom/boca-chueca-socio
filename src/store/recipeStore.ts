@@ -8,6 +8,7 @@ interface RecipeStore {
   recipes: Recipe[]
   add: (p: Omit<Recipe, 'id' | 'created_at'>) => void
   updateStatus: (id: string, status: RecipeStatus) => void
+  update: (id: string, patch: Partial<Recipe>) => void
   remove: (id: string) => void
 }
 
@@ -16,36 +17,41 @@ export const useRecipeStore = create<RecipeStore>()(
     (set) => ({
       recipes: [
         {
-          id: nanoid(), titulo: 'Cazuela de mariscos al vermú', status: 'aprobada',
-          descripcion: 'Mariscos chilenos en caldo de vermú blanco. Va al menú legendario.',
-          ingredientes: ['choritos', 'almejas', 'camarones', 'vermú blanco', 'ajo', 'perejil'],
-          categoria: 'plato', notas: 'Aprobada en degustación. Lista para carta.',
+          id: nanoid(),
+          titulo: 'Croquetas de mechada',
+          descripcion: 'Croqueta cremosa rellena de carne mechada chilena. Tapa incluida con cada jarra.',
+          ingredientes: [
+            { nombre: 'Carne mechada cocida', gramaje: 200, unidad: 'g' },
+            { nombre: 'Mantequilla',          gramaje: 50,  unidad: 'g' },
+            { nombre: 'Harina',               gramaje: 80,  unidad: 'g' },
+            { nombre: 'Leche entera',         gramaje: 300, unidad: 'ml' },
+            { nombre: 'Huevo',                gramaje: 2,   unidad: 'unid' },
+            { nombre: 'Pan rallado',          gramaje: 100, unidad: 'g' },
+            { nombre: 'Sal y pimienta',       gramaje: 0,   unidad: 'al gusto' },
+          ],
+          porciones: 4,
+          unidad_porcion: 'unidades (4 croquetas por tapa)',
+          categoria: 'tapa',
+          status: 'aprobada',
+          notas: 'Freír a 180°C por 3 minutos. Servir inmediatamente. Rendimiento: 16 croquetas por receta base.',
           created_at: new Date().toISOString(),
-        },
-        {
-          id: nanoid(), titulo: 'Pulpo en escabeche frío', status: 'en_prueba',
-          descripcion: 'Versión fría del pulpo para temporada de verano.',
-          ingredientes: ['pulpo', 'vinagre de vino', 'ají de color', 'laurel', 'cebolla morada'],
-          categoria: 'tapa', created_at: new Date().toISOString(),
-        },
-        {
-          id: nanoid(), titulo: 'Tapa de huevo con morcilla y trufa', status: 'idea',
-          descripcion: 'Plato de autor para el menú legendario. Combinación española-chilena.',
-          ingredientes: ['huevo de campo', 'morcilla ibérica', 'aceite de trufa', 'pan brioche'],
-          categoria: 'legendario', notas: 'Idea de Francisco. Pendiente de prueba.',
-          created_at: new Date().toISOString(),
-        },
-        {
-          id: nanoid(), titulo: 'Vermú de cosecha propia', status: 'idea',
-          descripcion: 'Macerado local con hierbas chilenas y vino del Valle Central.',
-          ingredientes: ['vino blanco chileno', 'boldo', 'matico', 'naranja', 'azúcar'],
-          categoria: 'bebida', created_at: new Date().toISOString(),
         },
       ],
-      add: (p) => set(s => ({ recipes: [{ ...p, id: nanoid(), created_at: new Date().toISOString() }, ...s.recipes] })),
-      updateStatus: (id, status) => set(s => ({ recipes: s.recipes.map(r => r.id === id ? { ...r, status } : r) })),
+
+      add: (p) => set(s => ({
+        recipes: [{ ...p, id: nanoid(), created_at: new Date().toISOString() }, ...s.recipes]
+      })),
+
+      updateStatus: (id, status) => set(s => ({
+        recipes: s.recipes.map(r => r.id === id ? { ...r, status } : r)
+      })),
+
+      update: (id, patch) => set(s => ({
+        recipes: s.recipes.map(r => r.id === id ? { ...r, ...patch } : r)
+      })),
+
       remove: (id) => set(s => ({ recipes: s.recipes.filter(r => r.id !== id) })),
     }),
-    { name: 'socio-recipes' }
+    { name: 'socio-recipes', version: 2 }
   )
 )

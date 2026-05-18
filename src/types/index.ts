@@ -46,11 +46,19 @@ export interface MarketCard {
 // ─── Receta / Lab ──────────────────────────────────────────────────────────
 export type RecipeStatus = 'idea' | 'en_prueba' | 'aprobada' | 'descartada'
 
+export interface Ingrediente {
+  nombre: string
+  gramaje: number      // 0 = sin gramaje exacto
+  unidad: string       // 'g' | 'ml' | 'unid' | 'al gusto' | 'tsp' | etc
+}
+
 export interface Recipe {
   id: string
   titulo: string
   descripcion?: string
-  ingredientes: string[]
+  ingredientes: Ingrediente[]
+  porciones: number
+  unidad_porcion: string   // 'personas' | 'unidades' | 'porciones'
   categoria: 'tapa' | 'tabla' | 'plato' | 'legendario' | 'bebida' | 'postre'
   status: RecipeStatus
   notas?: string
