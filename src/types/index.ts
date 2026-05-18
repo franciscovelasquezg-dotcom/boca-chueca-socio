@@ -1,0 +1,60 @@
+// ─── Auth ──────────────────────────────────────────────────────────────────
+export interface PartnerSession {
+  authenticated: boolean
+  nombre: string   // 'Jaime' u otro socio
+}
+
+// ─── Progreso del proyecto ─────────────────────────────────────────────────
+export type MilestoneStatus = 'done' | 'in_progress' | 'pending'
+
+export interface Milestone {
+  id: string
+  titulo: string
+  descripcion?: string
+  status: MilestoneStatus
+  fecha?: string       // ISO date — cuándo se completó o estimado
+  categoria: 'web' | 'admin' | 'negocio' | 'legal' | 'marketing'
+}
+
+// ─── Aporte del socio → Agenda interna ────────────────────────────────────
+export interface PartnerIdea {
+  id: string
+  contenido: string
+  tipo: 'aporte_socio'
+  fecha: string        // ISO datetime
+  estado: 'pendiente' | 'en_revision' | 'implementada' | 'descartada'
+  autor: string        // nombre del socio
+}
+
+// ─── Tarjeta de mercado ────────────────────────────────────────────────────
+export type MarketType = 'competidor' | 'inspiracion' | 'tendencia' | 'analisis'
+
+export interface MarketCard {
+  id: string
+  titulo: string
+  descripcion: string
+  url?: string
+  imagen_url?: string
+  tipo: MarketType
+  tags: string[]
+  created_at: string
+}
+
+// ─── Receta / Lab ──────────────────────────────────────────────────────────
+export type RecipeStatus = 'idea' | 'en_prueba' | 'aprobada' | 'descartada'
+
+export interface Recipe {
+  id: string
+  titulo: string
+  descripcion?: string
+  ingredientes: string[]
+  categoria: 'tapa' | 'tabla' | 'plato' | 'legendario' | 'bebida' | 'postre'
+  status: RecipeStatus
+  notas?: string
+  created_at: string
+}
+
+// ─── Shared store key (mismo que boca-chueca-admin) ───────────────────────
+// Las ideas del socio se escriben en 'boca-ideas' para que el hub admin las lea
+export const SHARED_IDEAS_KEY = 'boca-ideas'
+export const SHARED_TASKS_KEY = 'boca-tasks'
