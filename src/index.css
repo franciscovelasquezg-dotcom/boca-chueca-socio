@@ -1,27 +1,44 @@
 @import "tailwindcss";
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Montserrat:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&family=Montserrat:wght@400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap");
 
 @theme {
-  --color-bg:           #131313;
-  --color-surface:      #1c1b1b;
-  --color-card:         #201f1f;
-  --color-card-high:    #2a2a2a;
-  --color-border:       #504441;
-  --color-border-soft:  #353534;
-  --color-muted:        #9d8d8a;
-  --color-text:         #e5e2e1;
-  --color-text-soft:    #d5c3bf;
+  /* ── Paleta "La Tapería Partner Portal" — exacta de Stitch ── */
+  --color-background:                #131313;
+  --color-surface:                   #131313;
+  --color-surface-dim:               #131313;
+  --color-surface-bright:            #393939;
+  --color-surface-container-lowest:  #0e0e0e;
+  --color-surface-container-low:     #1c1b1b;
+  --color-surface-container:         #201f1f;
+  --color-surface-container-high:    #2a2a2a;
+  --color-surface-container-highest: #353534;
+  --color-on-surface:                #e5e2e1;
+  --color-on-surface-variant:        #d0c5af;
+  --color-outline:                   #99907c;
+  --color-outline-variant:           #4d4635;
 
-  --color-gold:         #eac349;
-  --color-gold-dim:     #cca830;
-  --color-gold-bg:      #3c2f00;
-  --color-red:          #8e241e;
-  --color-red-light:    #ffb4aa;
-  --color-red-bg:       #2b110b;
-  --color-primary:      #ecbbb0;
-  --color-green:        #4ade80;
-  --color-green-bg:     #14321a;
+  --color-primary:                   #ffe08c;
+  --color-on-primary:                #3d2f00;
+  --color-primary-container:         #eac349;
+  --color-on-primary-container:      #665000;
+  --color-primary-fixed:             #ffe089;
+  --color-primary-fixed-dim:         #e9c249;
 
+  --color-secondary:                 #ffb4aa;
+  --color-on-secondary:              #670406;
+  --color-secondary-container:       #8e241e;
+  --color-on-secondary-container:    #ffa499;
+
+  --color-tertiary:                  #6efe9c;
+  --color-on-tertiary:               #003919;
+  --color-tertiary-container:        #4ee183;
+  --color-on-tertiary-container:     #00602e;
+
+  --color-error:                     #ffb4ab;
+  --color-error-container:           #93000a;
+
+  /* ── Tipografía ── */
   --font-display: "Playfair Display", Georgia, serif;
   --font-sans:    "Montserrat", system-ui, sans-serif;
 }
@@ -32,20 +49,58 @@
     background: #131313;
     color: #e5e2e1;
     font-family: "Montserrat", system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     margin: 0;
+    min-height: 100dvh;
   }
-  h1,h2,h3,h4 { font-family: "Playfair Display", Georgia, serif; }
-  #root { width: 100%; min-height: 100svh; display: flex; flex-direction: column; }
-  ::-webkit-scrollbar       { width: 5px; }
+  h1,h2,h3,h4,h5 { font-family: "Playfair Display", Georgia, serif; }
+  #root { width: 100%; min-height: 100dvh; display: flex; flex-direction: column; }
+  ::-webkit-scrollbar       { width: 5px; height: 5px; }
   ::-webkit-scrollbar-track { background: #0e0e0e; }
-  ::-webkit-scrollbar-thumb { background: #504441; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb { background: #4d4635; border-radius: 0; }
+
+  /* Material Symbols */
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    font-size: 24px;
+    line-height: 1;
+    vertical-align: middle;
+  }
 }
 
 @layer utilities {
-  .font-display  { font-family: "Playfair Display", Georgia, serif; }
-  .shadow-gold   { box-shadow: 4px 4px 0 0 #eac349; }
-  .shadow-red    { box-shadow: 4px 4px 0 0 #8e241e; }
-  .shadow-black  { box-shadow: 4px 4px 0 0 #000; }
-  .glow-gold     { box-shadow: 0 0 20px rgba(234,195,73,0.15); }
+  /* Block shadows — sistema Stitch */
+  .shadow-block    { box-shadow: 4px 4px 0px 0px rgba(0,0,0,1); }
+  .shadow-block-sm { box-shadow: 2px 2px 0px 0px rgba(0,0,0,1); }
+  .shadow-block-lg { box-shadow: 8px 8px 0px 0px rgba(0,0,0,1); }
+  .shadow-gold     { box-shadow: 4px 4px 0px 0px #eac349; }
+  .shadow-red      { box-shadow: 4px 4px 0px 0px #8e241e; }
+
+  /* Hover lift con block shadow */
+  .hover-lift {
+    transition: transform 0.1s, box-shadow 0.1s;
+  }
+  .hover-lift:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px 0px rgba(0,0,0,1);
+  }
+
+  /* Progress gradient — gold to green */
+  .progress-gradient {
+    background: linear-gradient(90deg, #eac349 0%, #4ade80 100%);
+  }
+
+  /* Fonts */
+  .font-display { font-family: "Playfair Display", Georgia, serif; }
+  .font-sans    { font-family: "Montserrat", system-ui, sans-serif; }
+
+  /* Pulse dorado para estado "en progreso" */
+  .pulse-gold { animation: pulse-gold 2s cubic-bezier(0.4,0,0.6,1) infinite; }
+  @keyframes pulse-gold {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.5; }
+  }
 }

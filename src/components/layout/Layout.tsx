@@ -1,75 +1,45 @@
 import { useState } from 'react'
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
-import {
-  LayoutDashboard, Lightbulb, BarChart2,
-  FlaskConical, ExternalLink, LogOut, Menu, X
-} from 'lucide-react'
+import { LayoutDashboard, BookOpen, BarChart2, FlaskConical, ExternalLink, LogOut, X, PenLine } from 'lucide-react'
 import { useAuthStore } from '../../store/authStore'
 import { useIdeaStore } from '../../store/ideaStore'
 
 const NAV = [
-  { to: '/',        icon: LayoutDashboard, label: 'Evolución'   },
-  { to: '/ideas',   icon: Lightbulb,       label: 'Mis Aportes' },
-  { to: '/mercado', icon: BarChart2,        label: 'Mercado'     },
-  { to: '/recetas', icon: FlaskConical,     label: 'Recetas'     },
+  { to: '/',        icon: LayoutDashboard, label: 'Dashboard',  mat: 'dashboard'     },
+  { to: '/ideas',   icon: BookOpen,        label: 'Bitácora',   mat: 'history_edu'   },
+  { to: '/mercado', icon: BarChart2,        label: 'Mercado',    mat: 'trending_up'   },
+  { to: '/recetas', icon: FlaskConical,     label: 'Recetas',    mat: 'restaurant'    },
 ]
 
 export function Layout() {
-  const [mobile, setMobile] = useState(false)
-  const logout   = useAuthStore(s => s.logout)
-  const nombre   = useAuthStore(s => s.nombre)
-  const navigate = useNavigate()
-  const misIdeas = useIdeaStore(s => s.ideas.length)
+  const [drawer, setDrawer] = useState(false)
+  const logout    = useAuthStore(s => s.logout)
+  const nombre    = useAuthStore(s => s.nombre)
+  const navigate  = useNavigate()
+  const ideasCount = useIdeaStore(s => s.ideas.length)
 
   const handleLogout = () => { logout(); navigate('/login', { replace: true }) }
 
-  const NavItems = ({ onClick }: { onClick?: () => void }) => (
-    <>
-      {NAV.map(({ to, icon: Icon, label }) => (
-        <NavLink key={to} to={to} end={to === '/'} onClick={onClick}
-          className={({ isActive }) => `
-            flex items-center gap-3 px-5 py-4 text-sm font-bold uppercase tracking-wider
-            transition-all duration-150 border-b border-[#504441]/30 min-h-[52px]
-            ${isActive
-              ? 'bg-[#3c2f00] text-[#eac349] border-l-2 border-l-[#eac349]'
-              : 'text-[#9d8d8a] hover:bg-[#201f1f] hover:text-[#d5c3bf]'
-            }
-          `}>
-          <Icon size={18} className="shrink-0" />
-          <span>{label}</span>
-          {label === 'Mis Aportes' && misIdeas > 0 && (
-            <span className="ml-auto bg-[#eac349] text-[#131313] text-[10px] font-black px-2 py-1 min-w-[22px] text-center">
-              {misIdeas}
-            </span>
-          )}
-        </NavLink>
-      ))}
-    </>
-  )
-
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-background">
 
       {/* ── Top bar ── */}
-      <header className="h-14 bg-[#0e0e0e] border-b border-[#504441] px-4 flex items-center justify-between sticky top-0 z-30">
-        <div className="flex items-center gap-3">
-          {/* Hamburguesa móvil */}
+      <header className="
+        fixed top-0 w-full z-50 h-16
+        bg-background border-b-2 border-on-surface shadow-block
+        flex justify-between items-center
+        px-4 md:px-10
+      ">
+        {/* Logo + hamburguesa */}
+        <div className="flex items-center gap-4">
           <button
-            className="md:hidden text-[#9d8d8a] hover:text-[#ecbbb0] p-2 -ml-2 min-w-[44px] min-h-[44px] flex items-center justify-center"
-            onClick={() => setMobile(true)}
-            aria-label="Abrir menú"
+            onClick={() => setDrawer(true)}
+            className="md:hidden p-2 text-primary hover:bg-surface-container-high transition-colors active:translate-x-0.5 active:translate-y-0.5 min-w-[44px] min-h-[44px] flex items-center justify-center"
+            aria-label="Menú"
           >
-            <Menu size={20} />
+            <span className="material-symbols-outlined">menu</span>
           </button>
-          <div className="flex items-center gap-2">
-            <div className="w-7 h-7 bg-[#131313] border border-[#eac349] flex items-center justify-center shadow-[0_0_10px_rgba(234,195,73,0.2)] shrink-0">
-              <span className="font-display text-[#eac349] font-black italic text-[10px]">BC</span>
-            </div>
-            <div className="hidden sm:block">
-              <p className="font-display text-[#ecbbb0] italic font-bold text-sm leading-tight">Boca Chueca</p>
-              <p className="text-[9px] text-[#504441] uppercase tracking-widest">Portal del Socio</p>
-            </div>
-          </div>
+          <span className="font-display text-primary-container font-bold uppercase tracking-tighter text-2xl italic">BC</span>
         </div>
 
         {/* Nav desktop */}
@@ -77,59 +47,85 @@ export function Layout() {
           {NAV.map(({ to, icon: Icon, label }) => (
             <NavLink key={to} to={to} end={to === '/'}
               className={({ isActive }) => `
-                flex items-center gap-2 px-4 py-2 text-[11px] font-bold uppercase tracking-wider
-                transition-all duration-150
-                ${isActive ? 'bg-[#3c2f00] text-[#eac349]' : 'text-[#9d8d8a] hover:text-[#d5c3bf] hover:bg-[#201f1f]'}
+                flex items-center gap-2 px-4 py-2 text-[11px] font-bold uppercase tracking-widest
+                border-2 transition-all duration-100
+                ${isActive
+                  ? 'border-primary-container text-primary-container bg-surface-container shadow-block-sm'
+                  : 'border-transparent text-on-surface-variant hover:text-primary hover:bg-surface-container-high'
+                }
               `}>
-              <Icon size={14} />{label}
+              <Icon size={14} /> {label}
+              {label === 'Bitácora' && ideasCount > 0 && (
+                <span className="bg-primary-container text-on-primary-container text-[9px] font-black px-1.5 py-0.5 min-w-[18px] text-center">
+                  {ideasCount}
+                </span>
+              )}
             </NavLink>
           ))}
         </nav>
 
-        {/* Acciones */}
-        <div className="flex items-center gap-2">
+        {/* Avatar + acciones */}
+        <div className="flex items-center gap-3">
           <a href="https://taperia-boca-chueca.vercel.app" target="_blank"
-            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-[#504441] border border-[#504441] hover:text-[#eac349] hover:border-[#eac349] transition-colors min-h-[36px]">
-            <ExternalLink size={12} /> Sitio Web
+            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest border-2 border-outline-variant text-on-surface-variant hover:border-primary-container hover:text-primary-container transition-colors">
+            <ExternalLink size={11} /> Sitio
           </a>
-          <div className="flex items-center gap-2 pl-2 border-l border-[#504441]">
-            <div className="w-8 h-8 bg-[#2b110b] border border-[#8e241e] flex items-center justify-center shrink-0">
-              <span className="text-[#ecbbb0] font-black text-[11px]">{nombre.charAt(0).toUpperCase()}</span>
-            </div>
-            <span className="hidden sm:block text-[11px] text-[#9d8d8a] font-bold max-w-[80px] truncate">{nombre}</span>
-            <button onClick={handleLogout}
-              className="p-2 text-[#504441] hover:text-[#ffb4ab] transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
-              title="Salir">
-              <LogOut size={15} />
-            </button>
+          <div
+            className="w-10 h-10 border-2 border-on-surface shadow-block-sm bg-surface-container-high flex items-center justify-center cursor-pointer"
+            title={`${nombre} — click para salir`}
+            onClick={handleLogout}
+          >
+            <span className="font-display font-bold text-primary-container italic text-sm">
+              {nombre.charAt(0).toUpperCase()}
+            </span>
           </div>
         </div>
       </header>
 
-      {/* ── Mobile drawer ── */}
-      {mobile && (
+      {/* ── Drawer móvil ── */}
+      {drawer && (
         <div className="fixed inset-0 z-50 md:hidden">
-          <div className="absolute inset-0 bg-black/80" onClick={() => setMobile(false)} />
-          {/* w-4/5 = 80% del ancho — nunca supera la pantalla */}
-          <div className="absolute left-0 top-0 h-full w-4/5 max-w-xs bg-[#0e0e0e] border-r border-[#504441] flex flex-col">
-            <div className="flex items-center justify-between px-4 h-14 border-b border-[#504441] shrink-0">
-              <p className="font-display text-[#eac349] italic font-bold text-sm">Portal del Socio</p>
-              <button onClick={() => setMobile(false)}
-                className="text-[#504441] hover:text-[#9d8d8a] min-w-[44px] min-h-[44px] flex items-center justify-center">
+          <div className="absolute inset-0 bg-black/80" onClick={() => setDrawer(false)} />
+          <div className="absolute left-0 top-0 h-full w-4/5 max-w-xs bg-surface-container-lowest border-r-2 border-on-surface flex flex-col shadow-block-lg">
+
+            <div className="flex items-center justify-between px-4 h-16 border-b-2 border-on-surface">
+              <span className="font-display text-primary-container font-bold uppercase tracking-tighter text-xl italic">BC · Portal</span>
+              <button onClick={() => setDrawer(false)}
+                className="text-on-surface-variant hover:text-primary min-w-[44px] min-h-[44px] flex items-center justify-center">
                 <X size={18} />
               </button>
             </div>
-            <div className="flex-1 overflow-y-auto py-2">
-              <NavItems onClick={() => setMobile(false)} />
-            </div>
-            <div className="p-4 border-t border-[#504441] shrink-0 space-y-2">
+
+            <nav className="flex-1 py-4 overflow-y-auto">
+              {NAV.map(({ to, icon: Icon, label }) => (
+                <NavLink key={to} to={to} end={to === '/'} onClick={() => setDrawer(false)}
+                  className={({ isActive }) => `
+                    flex items-center gap-4 px-6 py-4 text-sm font-bold uppercase tracking-widest
+                    border-l-4 transition-all min-h-[52px]
+                    ${isActive
+                      ? 'border-primary-container text-primary-container bg-surface-container'
+                      : 'border-transparent text-on-surface-variant hover:bg-surface-container hover:text-on-surface'
+                    }
+                  `}>
+                  <Icon size={18} className="shrink-0" />
+                  <span>{label}</span>
+                  {label === 'Bitácora' && ideasCount > 0 && (
+                    <span className="ml-auto bg-primary-container text-on-primary-container text-[9px] font-black px-1.5 py-0.5">
+                      {ideasCount}
+                    </span>
+                  )}
+                </NavLink>
+              ))}
+            </nav>
+
+            <div className="p-4 border-t-2 border-on-surface space-y-1">
               <a href="https://taperia-boca-chueca.vercel.app" target="_blank"
-                className="flex items-center gap-2 text-[#504441] hover:text-[#eac349] text-sm font-bold uppercase tracking-wider py-2">
-                <ExternalLink size={14} /> Ver sitio web
+                className="flex items-center gap-3 px-2 py-3 text-sm font-bold uppercase tracking-widest text-on-surface-variant hover:text-primary-container transition-colors">
+                <ExternalLink size={16} /> Ver sitio web
               </a>
               <button onClick={handleLogout}
-                className="flex items-center gap-2 text-[#504441] hover:text-[#ffb4ab] text-sm font-bold uppercase tracking-wider py-2 w-full min-h-[44px]">
-                <LogOut size={14} /> Salir
+                className="w-full flex items-center gap-3 px-2 py-3 text-sm font-bold uppercase tracking-widest text-on-surface-variant hover:text-secondary transition-colors min-h-[44px]">
+                <LogOut size={16} /> Salir
               </button>
             </div>
           </div>
@@ -137,15 +133,47 @@ export function Layout() {
       )}
 
       {/* ── Contenido ── */}
-      <main className="flex-1 p-4 sm:p-6 lg:p-8 w-full max-w-5xl mx-auto">
-        <Outlet />
+      <main className="flex-1 pt-16 pb-24 md:pb-8">
+        <div className="px-4 md:px-10 py-8 max-w-7xl mx-auto">
+          <Outlet />
+        </div>
       </main>
 
-      <footer className="border-t border-[#504441]/30 py-4 text-center">
-        <p className="text-[10px] text-[#504441] uppercase tracking-widest px-4">
+      {/* ── Bottom nav móvil (estilo Stitch) ── */}
+      <nav className="md:hidden fixed bottom-0 w-full z-40 h-20 bg-surface-container border-t-2 border-on-surface flex justify-around items-center px-2">
+        {NAV.map(({ to, mat, label }) => (
+          <NavLink key={to} to={to} end={to === '/'}
+            className={({ isActive }) => `
+              flex flex-col items-center justify-center gap-0.5
+              min-w-[44px] min-h-[44px] px-3 transition-all
+              ${isActive ? 'text-primary-container scale-105' : 'text-on-surface-variant opacity-70 hover:text-primary'}
+            `}>
+            <span className="material-symbols-outlined text-[22px]">{mat}</span>
+            <span className="text-[10px] font-bold uppercase tracking-widest">{label}</span>
+          </NavLink>
+        ))}
+      </nav>
+
+      {/* ── FAB — acceso rápido bitácora ── */}
+      <NavLink to="/ideas"
+        className="
+          md:hidden fixed right-5 bottom-24 z-50
+          w-14 h-14 bg-primary-container text-on-primary-container
+          border-2 border-on-surface shadow-block
+          flex items-center justify-center
+          active:translate-x-0.5 active:translate-y-0.5 active:shadow-block-sm transition-all
+        "
+        title="Nueva entrada en bitácora"
+      >
+        <PenLine size={22} />
+      </NavLink>
+
+      {/* Footer */}
+      <div className="hidden md:block border-t border-outline-variant/30 py-3 text-center">
+        <p className="text-[10px] text-outline uppercase tracking-widest">
           La Tapería del Boca Chueca · Portal Privado del Socio
         </p>
-      </footer>
+      </div>
     </div>
   )
 }
