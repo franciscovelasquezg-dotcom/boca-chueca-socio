@@ -1,14 +1,15 @@
 import { useState } from 'react'
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
-import { LayoutDashboard, BookOpen, BarChart2, FlaskConical, ExternalLink, LogOut, X, PenLine } from 'lucide-react'
+import { LayoutDashboard, BookOpen, BarChart2, FlaskConical, FileText, ExternalLink, LogOut, X, PenLine } from 'lucide-react'
 import { useAuthStore } from '../../store/authStore'
 import { useIdeaStore } from '../../store/ideaStore'
 
 const NAV = [
-  { to: '/',        icon: LayoutDashboard, label: 'Dashboard',  mat: 'dashboard'     },
-  { to: '/ideas',   icon: BookOpen,        label: 'Bitácora',   mat: 'history_edu'   },
-  { to: '/mercado', icon: BarChart2,        label: 'Mercado',    mat: 'trending_up'   },
-  { to: '/recetas', icon: FlaskConical,     label: 'Recetas',    mat: 'restaurant'    },
+  { to: '/',        icon: LayoutDashboard, label: 'Dashboard', mat: 'dashboard'    },
+  { to: '/spec',    icon: FileText,        label: 'Spec',      mat: 'description'  },
+  { to: '/ideas',   icon: BookOpen,        label: 'Bitácora',  mat: 'history_edu'  },
+  { to: '/mercado', icon: BarChart2,        label: 'Mercado',   mat: 'trending_up'  },
+  { to: '/recetas', icon: FlaskConical,     label: 'Recetas',   mat: 'restaurant'   },
 ]
 
 export function Layout() {

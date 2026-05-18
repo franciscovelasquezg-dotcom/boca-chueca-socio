@@ -227,16 +227,14 @@ export function Dashboard() {
         </div>
       </section>
 
+      {/* IdeaBox — siempre visible, antes del grid */}
+      <IdeaBox />
+
       {/* Grid principal */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
 
-        {/* Columna izquierda — Timeline + Registro rápido */}
+        {/* Columna izquierda — Timeline */}
         <div className="lg:col-span-7 space-y-8">
-
-          {/* IdeaBox en móvil — arriba del timeline */}
-          <div className="lg:hidden">
-            <IdeaBox />
-          </div>
 
           {/* Timeline */}
           <section className="bg-surface-container-low border-2 border-outline-variant p-6 shadow-block">
@@ -252,11 +250,6 @@ export function Dashboard() {
 
         {/* Columna derecha — Tareas activas + IdeaBox desktop */}
         <div className="lg:col-span-5 space-y-8">
-
-          {/* IdeaBox desktop sticky */}
-          <div className="hidden lg:block sticky top-24">
-            <IdeaBox />
-          </div>
 
           {/* Tareas con subtareas */}
           <section className="bg-surface-container-low border-2 border-outline-variant p-6 shadow-block">

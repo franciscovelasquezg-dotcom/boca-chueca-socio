@@ -7,6 +7,7 @@ import { Dashboard }      from './pages/Dashboard'
 import { MisIdeas }       from './pages/MisIdeas'
 import { Mercado }        from './pages/Mercado'
 import { Recetas }        from './pages/Recetas'
+import { Spec }           from './pages/Spec'
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
             <Route path="ideas"    element={<MisIdeas />}  />
             <Route path="mercado"  element={<Mercado />}   />
             <Route path="recetas"  element={<Recetas />}   />
+            <Route path="spec"     element={<Spec />}      />
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
@@ -27,12 +29,7 @@ export default function App() {
       <Toaster
         position="top-right"
         toastOptions={{
-          style: {
-            background: 'transparent',
-            boxShadow: 'none',
-            padding: 0,
-            margin: 0,
-          }
+          style: { background: 'transparent', boxShadow: 'none', padding: 0, margin: 0 }
         }}
       />
     </>
