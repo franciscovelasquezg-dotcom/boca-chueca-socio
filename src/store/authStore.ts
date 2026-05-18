@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
-const PARTNER_KEY = import.meta.env.VITE_PARTNER_KEY ?? 'socio2026'
+const PARTNER_KEY = import.meta.env.VITE_PARTNER_KEY ?? 'BocaChueca2026!'
 
 interface AuthStore {
   authenticated: boolean
