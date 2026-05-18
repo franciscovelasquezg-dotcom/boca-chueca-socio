@@ -44,12 +44,24 @@ export interface MarketCard {
 }
 
 // ─── Receta / Lab ──────────────────────────────────────────────────────────
-export type RecipeStatus = 'idea' | 'en_prueba' | 'aprobada' | 'descartada'
+export type RecipeStatus =
+  | 'idea'        // 💡 Aún no se ha probado
+  | 'en_prueba'   // 🧪 Se está probando
+  | 'en_proceso'  // 🔄 Ajustando la receta
+  | 'ajustando'   // ✏️ Refinando ingredientes/gramaje
+  | 'aprobada'    // ✅ Lista para la carta
+  | 'descartada'  // ❌ No funcionó
 
 export interface Ingrediente {
   nombre: string
   gramaje: number      // 0 = sin gramaje exacto
   unidad: string       // 'g' | 'ml' | 'unid' | 'al gusto' | 'tsp' | etc
+}
+
+export interface RecipeLog {
+  fecha: string         // ISO datetime
+  accion: string        // 'Creada' | 'Ingrediente agregado' | etc
+  detalle?: string      // descripción del cambio
 }
 
 export interface Recipe {
@@ -58,11 +70,13 @@ export interface Recipe {
   descripcion?: string
   ingredientes: Ingrediente[]
   porciones: number
-  unidad_porcion: string   // 'personas' | 'unidades' | 'porciones'
+  unidad_porcion: string
   categoria: 'tapa' | 'tabla' | 'plato' | 'legendario' | 'bebida' | 'postre'
   status: RecipeStatus
   notas?: string
   created_at: string
+  updated_at: string
+  historial: RecipeLog[]  // auditoría de cambios
 }
 
 // ─── Shared store key (mismo que boca-chueca-admin) ───────────────────────
