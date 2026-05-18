@@ -17,13 +17,16 @@ export interface Milestone {
 }
 
 // ─── Aporte del socio → Agenda interna ────────────────────────────────────
+export type IdeaSource = 'francisco' | 'cliente' | 'observacion' | 'staff'
+
 export interface PartnerIdea {
   id: string
   contenido: string
   tipo: 'aporte_socio'
-  fecha: string        // ISO datetime
+  fecha: string
   estado: 'pendiente' | 'en_revision' | 'implementada' | 'descartada'
-  autor: string        // nombre del socio
+  autor: string
+  source: IdeaSource
 }
 
 // ─── Tarjeta de mercado ────────────────────────────────────────────────────
