@@ -203,7 +203,7 @@ export function Dashboard() {
       <section>
         <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-2">
           <div>
-            <h1 className="font-display italic font-bold text-primary text-4xl sm:text-5xl leading-tight">
+            <h1 className="font-display italic font-bold text-primary text-2xl sm:text-4xl leading-tight">
               Hola, {nombre} 👋
             </h1>
             <p className="text-on-surface-variant mt-1 capitalize">{hoy}</p>
@@ -231,7 +231,7 @@ export function Dashboard() {
       </section>
 
       {/* Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-8">
 
         {/* Timeline */}
         <div className="lg:col-span-7">

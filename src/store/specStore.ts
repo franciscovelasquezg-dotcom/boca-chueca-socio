@@ -36,9 +36,6 @@ export interface ProjectSpec {
 
   // Modelo de negocio
   modeloNegocio: string
-  preciosJarras: string[]
-  preciosTablas: string[]
-  preciosPlatos: string[]
 
   // Fases
   fases: SpecFase[]
@@ -68,26 +65,6 @@ const SPEC_INICIAL: ProjectSpec = {
   horario: 'Martes a Domingo · 18:00–00:00',
 
   modeloNegocio: 'Venta de bebestibles como producto principal. Las tapas son el diferenciador y costo de retención (no el negocio central). La gente toma más cuando come: rotación estimada 2–3 jarras por visita. Margen bruto jarra 500ml: ~$1.800–$2.200 incluyendo 2 tapas. Margen bruto jarra 1L: ~$3.300–$3.900 incluyendo 3 tapas.',
-
-  preciosJarras: [
-    'Jarra 500ml → $3.500 (incluye 2 tapas de la casa)',
-    'Jarra 1 Litro → $6.500 (incluye 3 tapas de la casa)',
-    'Copa vermú o vino → $2.500 (incluye 1 tapa de la casa)',
-  ],
-  preciosTablas: [
-    'Tabla de quesos y cecinas → $8.900 (para 2–3 personas)',
-    'Tabla del mar → $12.900 (para 2–3 personas)',
-    'Tabla de la huerta → $7.900 (para 2 personas)',
-    'La Tabla del Conquistador → $28.900 (para 4–6 personas)',
-  ],
-  preciosPlatos: [
-    'Tortilla de papas chilota → $5.900',
-    'Chorizo español a la sidra → $6.900',
-    'Humita frita con alioli → $5.500',
-    'Pulpo a la brasa (plato completo) → $9.900',
-    'Pulpo entero a la brasa (para 2) → $19.900 — Menú Legendario',
-    'El Boca Chueca (plato firma) → $11.900 — Menú Legendario',
-  ],
 
   fases: [
     {

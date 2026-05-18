@@ -134,8 +134,8 @@ export function Layout() {
       )}
 
       {/* ── Contenido ── */}
-      <main className="flex-1 pt-16 pb-24 md:pb-8">
-        <div className="px-4 md:px-10 py-8 max-w-7xl mx-auto">
+      <main className="flex-1 pt-16 pb-28 md:pb-8">
+        <div className="px-4 md:px-10 py-6 sm:py-8 max-w-7xl mx-auto">
           <Outlet />
         </div>
       </main>
@@ -158,8 +158,8 @@ export function Layout() {
       {/* ── FAB — acceso rápido bitácora ── */}
       <NavLink to="/ideas"
         className="
-          md:hidden fixed right-5 bottom-24 z-50
-          w-14 h-14 bg-primary-container text-on-primary-container
+          md:hidden fixed right-4 bottom-[6.5rem] z-50
+          w-12 h-12 bg-primary-container text-on-primary-container
           border-2 border-on-surface shadow-block
           flex items-center justify-center
           active:translate-x-0.5 active:translate-y-0.5 active:shadow-block-sm transition-all
